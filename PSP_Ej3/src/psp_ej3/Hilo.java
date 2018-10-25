@@ -26,7 +26,6 @@ class Hilo extends Thread {
             this.start();
         }
     }
-
     @Override
     public void run() {
         System.out.println("Comenzo el Hilo " + pid);

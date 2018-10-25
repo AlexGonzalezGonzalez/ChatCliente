@@ -19,7 +19,6 @@ public class Hilo23 extends Thread {
     Hilo23() {
         this.start();
     }
-
     public void run() {
         
         for (int i = 1; i < 1001; i++) {

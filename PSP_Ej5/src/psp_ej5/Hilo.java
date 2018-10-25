@@ -19,19 +19,17 @@ class Hilo extends Thread {
 
     public Hilo(int pid) {
         this.pid = pid;
-        
+
         if (Hilo.conta == 0) {
-           this.setPriority(Thread.MIN_PRIORITY);
+            this.setPriority(Thread.MIN_PRIORITY);
             Hilo.conta++;
             Hilo h2 = new Hilo(2);
-           h2.setPriority(Thread.MAX_PRIORITY);
-            
-                //h2.join();
-            
+            h2.setPriority(Thread.MAX_PRIORITY);
+
+            //h2.join();
         }
 
         this.start();
-
     }
 
     public void run() {

@@ -20,7 +20,6 @@ class Hilo extends Thread{
         this.pid=x;
         this.start();
     }
-
     @Override
     public void run() {
         for (int i = 0; i < 5; i++) {
