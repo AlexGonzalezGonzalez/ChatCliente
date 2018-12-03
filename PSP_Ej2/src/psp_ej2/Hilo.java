@@ -13,27 +13,22 @@ import java.util.logging.Logger;
  * @author oracle
  */
 class Hilo extends Thread{
+    //id del proceso
     int pid;
-    static int conta=0;
-    static boolean acabo;
+    //asignamos el id y empezamos el hilo
     Hilo(int x){
         this.pid=x;
         this.start();
     }
     @Override
     public void run() {
+        //cada hilo escribe su id mas el numero de iteracion y en cada 
+        //iteracion se suspende un segundo
         for (int i = 0; i < 5; i++) {
             try {
                 System.out.println("Hilo "+pid+": "+i);
                 Thread.sleep(1000);
-                if(i==4){
-                    conta++;
-                   
-                    if(conta==4){
-                    acabo=true;
-                        
-                    }
-                }
+                
             } catch (InterruptedException ex) {
                 Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
             }

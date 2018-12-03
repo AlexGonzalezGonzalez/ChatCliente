@@ -22,12 +22,13 @@ public class HiloImpar extends Thread {
 
     @Override
     public void run() {
-
+        //añadimos a un array todos los numeros impares del 1 al 1000
         for (int i = 1; i < 1001; i++) {
             if (i % 2 != 0) {
                 numeros.add(i);
             }
         }
+        //sumamos los numeros que hay en el array y mostramos el resultado en cada iteracion
         for (int i = 0; i < numeros.size(); i++) {
             suma = suma + numeros.get(i);
             System.out.println(suma);

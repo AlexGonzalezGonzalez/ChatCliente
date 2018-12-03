@@ -19,7 +19,7 @@ public class PSP_Ej2 {
         Hilo h2= new Hilo(2);
         Hilo h3= new Hilo(3);
         Hilo h4= new Hilo(4);
-        
+        //mientras alguno siga ejecutandose, no se muestra el mensaje
         while(h1.isAlive() && h2.isAlive() && h3.isAlive() && h4.isAlive()){
             
         }
