@@ -15,7 +15,8 @@ public class PSP_Ej5 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Hilo h1 = new Hilo(1);
+        Hilo h1 = new Hilo(1);//prioridades
+        //Hilo2 h2 = new Hilo2(2);//join
     }
     
 }
