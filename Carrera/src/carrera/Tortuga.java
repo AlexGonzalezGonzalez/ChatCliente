@@ -25,7 +25,7 @@ class Tortuga extends Thread{
 
     @Override
     public void run() {
-
+        //Mientras no llegue a 100, y tenga turno se mueve
         while (this.getPosicion() < 100) {
             System.out.println("tortuga "+Tortuga.turno);
             if (Tortuga.turno == true) {
@@ -38,7 +38,7 @@ class Tortuga extends Thread{
         
 
     }
-
+    //Asigna la posicion a la tortuga dependiendo del numero random de casillas a moverse
     public void mover(int casillas, int posicion) {
         if (casillas > 0) {
             System.out.println("Tortuga avanza " + casillas + " casillas");

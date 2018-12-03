@@ -25,7 +25,7 @@ public class Carrera {
         t.start();
         l.start();
     }
-
+    //Calcula el numero de casillas que se va a mover la tortuga
     public static int movimientoTortuga() {
         int y = 0;
         int x = (int) (Math.ceil(Math.random() * 100));
@@ -41,7 +41,7 @@ public class Carrera {
         return y;
 
     }
-
+    //Calcula el numero random de casillas que se va a mover la liebre
     public static int movimientoLiebre() {
         int y = 0;
         int x = (int) (Math.ceil(Math.random() * 101));
@@ -63,7 +63,8 @@ public class Carrera {
         return y;
 
     }
-
+    //Durante el turno de cada uno, asigna la posicion calculando las casillas y cogiendo la posicion en la que estan y les pasa el turno a otro
+    //Mientras uno este en este metodo turno, el otro no puede ejecutar su turno, aun asi no pueden por el while
     public synchronized static void turno(String nombre) {
         if (nombre.equalsIgnoreCase("tortuga")) {
             t.mover(Carrera.movimientoTortuga(), t.getPosicion());

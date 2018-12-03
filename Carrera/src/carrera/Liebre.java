@@ -28,7 +28,7 @@ class Liebre extends Thread {
 
     @Override
     public void run() {
-
+        //Mientras no llegue a 100 tendra turno para moverse cuando no le toque a la tortuga
         while (this.getPosicion() < 100) {
          
             if (Tortuga.turno == false) {
@@ -38,7 +38,7 @@ class Liebre extends Thread {
         }
        
     }
-
+    //Asigna la posicion de la liebre dependiendo del numero random de casillas que avance
     public void mover(int casillas, int posicion) {
         if (casillas > 0) {
             System.out.println("Liebre avanza " + casillas + " casillas");
