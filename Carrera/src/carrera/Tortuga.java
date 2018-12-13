@@ -12,13 +12,14 @@ import java.util.logging.Logger;
  *
  * @author agonzalezgonzalez
  */
-class Tortuga extends Thread{
+class Tortuga implements Runnable{
     Mediador x;
     public static boolean turno = false;
     public static int posicion = 1;
 
     Tortuga (Mediador x){
         this.x=x;
+        new Thread(this).start();
     }
     public int getPosicion() {
         return posicion;
@@ -31,7 +32,7 @@ class Tortuga extends Thread{
     @Override
     public void run() {
         //Mientras no llegue a 100, y tenga turno se mueve
-        while (this.getPosicion() < 100) {
+        while (true) {
 
                 try {
                     x.turno("tortuga");

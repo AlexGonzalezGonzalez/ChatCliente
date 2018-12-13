@@ -12,11 +12,12 @@ import java.util.logging.Logger;
  *
  * @author agonzalezgonzalez
  */
-class Liebre extends Thread {
+class Liebre implements Runnable{
     Mediador x;
     
     public static int posicion = 1;
     Liebre(Mediador x){
+        new Thread(this).start();
         this.x=x;
     }
 
@@ -31,7 +32,7 @@ class Liebre extends Thread {
     @Override
     public void run() {
         //Mientras no llegue a 100 tendra turno para moverse cuando no le toque a la tortuga
-        while (this.getPosicion() < 100) {
+        while (true) {
             
             
                 try {

@@ -22,8 +22,6 @@ public class Carrera {
         Mediador x = new Mediador();
         t = new Tortuga(x);
         l = new Liebre(x);
-        t.start();
-        l.start();
     }
     //Calcula el numero de casillas que se va a mover la tortuga
     public static int movimientoTortuga() {
@@ -35,7 +33,7 @@ public class Carrera {
         if (x >= 51 && x < 70) {
             y = -6;
         }
-        if (x >= 71 && x <= 101) {
+        if (x >= 71) {
             y = 1;
         }
         return y;
@@ -57,7 +55,7 @@ public class Carrera {
         if (x >= 61 && x <= 70) {
             y = -12;
         }
-        if (x >= 71 && x <= 101) {
+        if (x >= 71) {
             y = 1;
         }
         return y;

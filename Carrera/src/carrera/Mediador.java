@@ -21,7 +21,7 @@ public class Mediador {
             Thread.sleep(1000);
             t.mover(Carrera.movimientoTortuga(), t.getPosicion());
             System.out.println("Posicion de la tortuga: " + t.getPosicion());
-            if (t.getPosicion() >= 100) {
+            if (t.getPosicion() >= 70) {
                 System.out.println("Llego la tortuga");
                 System.exit(0);
             }
@@ -35,7 +35,7 @@ public class Mediador {
             Thread.sleep(1000);
             l.mover(Carrera.movimientoLiebre(), l.getPosicion());
             System.out.println("Posicion de la liebre: " + l.getPosicion());
-            if (l.getPosicion() >= 100) {
+            if (l.getPosicion() >= 70) {
                 System.out.println("LLego la liebre");
                 System.exit(0);
             }
