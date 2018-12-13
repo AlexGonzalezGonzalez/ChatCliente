@@ -19,9 +19,9 @@ public class Carrera {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        t = new Tortuga();
-        l = new Liebre();
+        Mediador x = new Mediador();
+        t = new Tortuga(x);
+        l = new Liebre(x);
         t.start();
         l.start();
     }
@@ -61,29 +61,5 @@ public class Carrera {
             y = 1;
         }
         return y;
-
     }
-    //Durante el turno de cada uno, asigna la posicion calculando las casillas y cogiendo la posicion en la que estan y les pasa el turno a otro
-    //Mientras uno este en este metodo turno, el otro no puede ejecutar su turno, aun asi no pueden por el while
-    public synchronized static void turno(String nombre) {
-        if (nombre.equalsIgnoreCase("tortuga")) {
-            t.mover(Carrera.movimientoTortuga(), t.getPosicion());
-            System.out.println("Posicion de la tortuga: " + t.getPosicion());
-            if (t.getPosicion() >= 100) {
-                System.out.println("Llego la tortuga");
-                System.exit(0);
-            }
-            Tortuga.turno = false;
-
-        } else if (nombre.equalsIgnoreCase("liebre")) {
-
-            l.mover(Carrera.movimientoLiebre(), l.getPosicion());
-            System.out.println("Posicion de la liebre: " + l.getPosicion());
-            if (l.getPosicion() >= 100) {
-                System.out.println("LLego la liebre");
-                System.exit(0);
-            }
-            Tortuga.turno = true;
-    }
-}
 }

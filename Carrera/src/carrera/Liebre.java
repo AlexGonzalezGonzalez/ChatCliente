@@ -5,7 +5,6 @@
  */
 package carrera;
 
-import static java.lang.Thread.State.TERMINATED;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,9 +13,12 @@ import java.util.logging.Logger;
  * @author agonzalezgonzalez
  */
 class Liebre extends Thread {
-
-    Thread tortuga;
+    Mediador x;
+    
     public static int posicion = 1;
+    Liebre(Mediador x){
+        this.x=x;
+    }
 
     public int getPosicion() {
         return posicion;
@@ -30,11 +32,15 @@ class Liebre extends Thread {
     public void run() {
         //Mientras no llegue a 100 tendra turno para moverse cuando no le toque a la tortuga
         while (this.getPosicion() < 100) {
-         
-            if (Tortuga.turno == false) {
-                Carrera.turno("liebre");
+            
+            
+                try {
+                    x.turno("liebre");
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Liebre.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-            }
+            
         }
        
     }

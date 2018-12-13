@@ -5,16 +5,21 @@
  */
 package carrera;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author agonzalezgonzalez
  */
 class Tortuga extends Thread{
-
+    Mediador x;
     public static boolean turno = false;
     public static int posicion = 1;
-    private int movimiento;
 
+    Tortuga (Mediador x){
+        this.x=x;
+    }
     public int getPosicion() {
         return posicion;
     }
@@ -27,11 +32,13 @@ class Tortuga extends Thread{
     public void run() {
         //Mientras no llegue a 100, y tenga turno se mueve
         while (this.getPosicion() < 100) {
-            System.out.println("tortuga "+Tortuga.turno);
-            if (Tortuga.turno == true) {
-                
-                Carrera.turno("tortuga");
-            }
+
+                try {
+                    x.turno("tortuga");
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Tortuga.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
 
         }
 
