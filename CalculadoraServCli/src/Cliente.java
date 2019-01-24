@@ -25,8 +25,17 @@ public class Cliente {
     byte[] mensaje = new byte[1];
 
     Cliente() {
-        //conexion();
+        conexion();
     }
+    
+    /*
+    
+    */
+
+    /**
+     * Metodo que leer el mensaje que envio el servidor.
+     * @return Devuelve un String que es el resultado de la operacion.
+     */
 
     public String clienteLeerResultado() {
         try {
@@ -38,6 +47,10 @@ public class Cliente {
         return new String(mensaje);
     }
 
+    /**
+     * Metodo que envia la operacion completa al servidor
+     * @param msg String que contiene la operacion que se le quiere enviar al servidor.
+     */
     public void clienteEscribir(String msg) {
 
         try {
@@ -50,12 +63,18 @@ public class Cliente {
         }
     }
 
+    /**
+     *Metodo que conecta con el servidor usando socket stream y inicia el inputStream y outputStream 
+     */
     public void conexion() {
         try {
             
             clienteSocket = new Socket();
-            addr = new InetSocketAddress("localhost", 6666);
+            
+            addr = new InetSocketAddress("10.0.9.", 4000);
+            
             clienteSocket.connect(addr);
+            
             is = clienteSocket.getInputStream();
             os = clienteSocket.getOutputStream();
             
