@@ -1,7 +1,4 @@
 
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,8 +10,7 @@ import java.util.logging.Logger;
  * @author agonzalezgonzalez
  */
 public class Calculadora {
-
-    public static boolean servReady = false;
+ 
 
     /**
      * @param args the command line arguments

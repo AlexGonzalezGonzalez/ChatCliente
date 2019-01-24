@@ -25,7 +25,7 @@ public class Cliente {
     byte[] mensaje = new byte[1];
 
     Cliente() {
-        conexion();
+        //conexion();
     }
     
     /*

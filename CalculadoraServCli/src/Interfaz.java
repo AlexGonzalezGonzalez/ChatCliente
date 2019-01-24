@@ -1,16 +1,11 @@
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.text.html.HTML;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,6 +21,7 @@ public class Interfaz extends JPanel implements ActionListener {
 
     Teclado teclado = new Teclado();
     Cliente c = new Cliente();
+    
     char raiz = '\u221A';
     String msg = "";
     int x = 10, y = 80;
@@ -316,8 +312,6 @@ public class Interfaz extends JPanel implements ActionListener {
                 bRetroceso.doClick();
             }
 
-            //String texto = txt.getText();
-            //txt.setText(texto+e.getKeyChar());
         }
 
     }
