@@ -5,6 +5,8 @@
  */
 package chatcliente;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author agonzalezgonzalez
@@ -16,7 +18,12 @@ public class ChatCliente {
      */
     public static void main(String[] args) {
         //Controlador c = new Controlador();
-        Vista v = new Vista();
+        //Vista v = new Vista();
+        Cliente c = new Cliente();
+        c.clienteEscribir(JOptionPane.showInputDialog("NickName"));
+        while (true) {
+        c.clienteEscribir(JOptionPane.showInputDialog("Mensaje") + "#");
+        }
     }
-    
+
 }

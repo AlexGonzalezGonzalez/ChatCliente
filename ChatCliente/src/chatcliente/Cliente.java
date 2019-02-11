@@ -50,6 +50,7 @@ public class Cliente {
         try {
             mensaje = new byte[250];
             is.read(mensaje);
+            
             System.out.println("Cliente recibio: "+new String(mensaje));
         } catch (IOException ex) {
            
@@ -68,7 +69,7 @@ public class Cliente {
         //Escribimos el mensaje que recibimos
         //Si da error muestra un mensaje
         try {
-            
+            msg=msg+"#";
             os.write(msg.getBytes());
             System.out.println("Cliente envio: "+msg);
             
