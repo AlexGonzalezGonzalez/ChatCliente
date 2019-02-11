@@ -17,13 +17,9 @@ public class ChatCliente {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //Controlador c = new Controlador();
-        //Vista v = new Vista();
-        Cliente c = new Cliente();
-        c.clienteEscribir(JOptionPane.showInputDialog("NickName"));
-        while (true) {
-        c.clienteEscribir(JOptionPane.showInputDialog("Mensaje") + "#");
-        }
+
+        Vista v = new Vista();
+        
     }
 
 }

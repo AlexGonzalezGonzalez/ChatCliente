@@ -25,9 +25,14 @@ public class Lector implements Runnable{
             
         while(true){
             try {
-                byte[] mensaje = new byte[100];
+                byte[] mensaje = new byte[2000];
                 lector.read(mensaje);
+                if(lector.available()>0){
+                String msg = new String(mensaje);
                 System.out.println("Leer: "+new String(mensaje));
+                Vista.chat.append(msg);
+                }
+                        
             } catch (IOException ex) {
                 Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
             }

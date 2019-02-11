@@ -32,7 +32,6 @@ public class Cliente {
         
        
         conexion();
-        new Lector(is);
         System.out.println("Cliente conectado");
 
         
