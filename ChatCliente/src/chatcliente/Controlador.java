@@ -17,14 +17,20 @@ public class Controlador {
     Cliente c;
 
     Controlador(Cliente c) {
-        this.c=c;
+        this.c = c;
         c.clienteEscribir(JOptionPane.showInputDialog(null, "NickName"));
+        
+    }
+    
+    public Cliente getCliente(){
+        return this.c;
     }
 
     public void enviar(String mensaje) {
         c.clienteEscribir(mensaje);
     }
-    public String leer(){
+
+    public String leer() {
         return c.clienteLeerResultado();
     }
 }

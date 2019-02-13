@@ -39,15 +39,13 @@ public final class Vista extends JPanel implements ActionListener {
         txt = new JTextField();
         titulo = new JLabel();
         enviar = new JButton("Enviar");
-
-        new Lector(cli.is);
-
+        
         this.setLayout(null);
 
         posicionChat();
         posicionTxt();
 
-        titulo.setBounds(chat.getX(), chat.getY() - 75, chat.getWidth(), 50);
+        titulo.setBounds(panelChat.getX(), panelChat.getY() - 75, panelChat.getWidth(), 50);
         titulo.setText("Sala de chat");
         titulo.setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
         titulo.setHorizontalAlignment(JLabel.CENTER);
@@ -76,11 +74,13 @@ public final class Vista extends JPanel implements ActionListener {
         ventana.setLocationRelativeTo(null);
         ventana.add(this);
         ventana.setVisible(true);
+        
+        new Lector(contr.getCliente().ips);
     }
 
     private void posicionTxt() {
 
-        txt.setBounds(chat.getX(), chat.getY() + chat.getHeight() + 75, chat.getWidth(), 50);
+        txt.setBounds(panelChat.getX(), panelChat.getY() + panelChat.getHeight() + 75, panelChat.getWidth(), 50);
         txt.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
         enviar.setBounds(txt.getX() + txt.getWidth() + 5, txt.getY(), 80, 50);
@@ -110,8 +110,12 @@ public final class Vista extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == enviar) {
+            
             contr.enviar(txt.getText());
-            Vista.chat.setText(chat.getText() + contr.leer());
+            txt.setText("");
+            Vista.chat.append(contr.leer());
+            chat.append("\n");
+            
         }
     }
 
