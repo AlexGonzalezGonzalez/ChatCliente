@@ -19,12 +19,14 @@ import javax.swing.JFrame;
 public class Lector implements Runnable {
 
     public Thread hilo;
+    Cliente cliente;
     DataInputStream lector;
     int size = 0;
     byte[] mensaje = new byte[2000];
 
-    Lector(DataInputStream is) {
-        this.lector = is;
+    Lector(Cliente c) {
+        this.cliente=c;
+        this.lector=c.getIps();
         hilo = new Thread(this);
         hilo.start();
     }
@@ -49,11 +51,14 @@ public class Lector implements Runnable {
                     System.out.println("if del lector");
                     String[] arr=msg.split("conectado \\( ");
                     Vista.nuevoUsuario(arr[1].split(" /")[0]);
+                    System.out.println(arr[1].split("/")[0]);
                 }
 
             } catch (IOException ex) {
-                Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            this.hilo.stop();
+            this.cliente.desconexion();
+            
+                }
         }
     }
 

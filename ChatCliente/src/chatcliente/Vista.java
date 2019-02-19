@@ -17,7 +17,7 @@ import javax.swing.*;
  *
  * @author agonzalezgonzalez
  */
-public class Vista extends JPanel{
+public class Vista extends JPanel {
 
     static Cliente c;
     Lector lector;
@@ -37,16 +37,16 @@ public class Vista extends JPanel{
         ventana = new JFrame();
         panelUsuarios = new JPanel();
         enviar = new JButton("enviar");
-        lector = new Lector(c.getIps());
+        lector = new Lector(c);
         c.setLector(lector);
 
         //Null para posiciones absolutas
         this.setLayout(null);
 
         enviar.addActionListener((ActionEvent ae) -> {
-        enviarMensaje(Vista.txt.getText());
+            enviarMensaje(Vista.txt.getText());
         });
-        
+
         this.addKeyListener(new Teclado());
 
         //Caracteristicas TextArea
@@ -54,24 +54,22 @@ public class Vista extends JPanel{
         chat.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         chat.setLineWrap(true);
         chat.setEditable(false);
-        
+
         //Caracteristicas txt
         txt.setBounds(chat.getX(), chat.getY() + chat.getHeight() + 10, chat.getWidth(), 65);
-        
-        
-        
+
         //Cracteristica panelUsuarios
         panelUsuarios.setBounds(chat.getX() + chat.getWidth() + 10, chat.getY(), 100, chat.getHeight());
         panelUsuarios.setLayout(new GridLayout(10, 1));
         panelUsuarios.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        
+
         enviar.setBounds(panelUsuarios.getX(), txt.getY(), panelUsuarios.getWidth(), 50);
 
         this.add(enviar);
         this.add(panelUsuarios);
         this.add(chat);
         this.add(txt);
-        
+
         ventana.setLocationRelativeTo(null);
         ventana.setSize(600, 550);
         ventana.add(this);
@@ -86,10 +84,11 @@ public class Vista extends JPanel{
     }
 
     public static void enviarMensaje(String mensaje) {
-        if(!mensaje.equalsIgnoreCase("/bye#")){
+        if (!mensaje.equalsIgnoreCase("/bye#")) {
+
+            c.clienteEscribir(mensaje);
+        } else {
             System.out.println("Cliente escribio /bye ");
-        c.clienteEscribir(mensaje);
-        }else{
             c.desconexion();
         }
         Vista.txt.setText("");
