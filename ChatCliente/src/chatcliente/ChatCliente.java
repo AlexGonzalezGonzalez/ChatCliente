@@ -5,6 +5,10 @@
  */
 package chatcliente;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractButton;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,9 +21,7 @@ public class ChatCliente {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        Vista v = new Vista();
-        
+            Vista v = new Vista();
     }
 
 }

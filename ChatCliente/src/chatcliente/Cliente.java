@@ -19,7 +19,8 @@ import javax.swing.JOptionPane;
  * @author agonzalezgonzalez
  */
 public class Cliente {
-    int size=0;
+
+    int size = 0;
     DataOutputStream ops;
     DataInputStream ips;
     InputStream is;
@@ -27,39 +28,19 @@ public class Cliente {
     InetSocketAddress addr;
     Socket clienteSocket;
     byte[] mensaje;
-    private boolean conectado = false;
+    Lector lector;
 
     //Constructor
     Cliente() {
-
+        
         //Nos conectamos al servidor
         conexion();
-        System.out.println("Cliente conectado");
+        //System.out.println("Cliente conectado");
 
     }
 
-    /**
-     * Metodo que lee el mensaje que envio el servidor.
-     *
-     * @return Devuelve un String que es el resultado de la operacion.
-     */
-    public String clienteLeerResultado() {
-
-        //Leemos el mensaje y lo devolvemos en un String
-        //Si da error muestra un mensaje
-        try {
-            size=ips.readInt();
-            System.out.println(size);
-            if(size>0){
-            mensaje = new byte[size];
-            ips.read(mensaje);
-                System.out.println(size);
-            System.out.println("Cliente recibio: " + new String(mensaje));
-            }
-        } catch (IOException ex) {
-
-        }
-        return new String(mensaje);
+    public void setLector(Lector lector) {
+        this.lector = lector;
     }
 
     /**
@@ -73,12 +54,12 @@ public class Cliente {
         //Escribimos el mensaje que recibimos
         //Si da error muestra un mensaje
         try {
-            
+
             msg = msg + "#";
-            size=msg.length();
+            size = msg.getBytes().length;
             ops.writeInt(size);
             ops.write(msg.getBytes());
-            System.out.println("Cliente envio: " + msg);
+            System.out.println("Cliente escribio: " + msg);
 
         } catch (IOException ex) {
 
@@ -101,15 +82,17 @@ public class Cliente {
             clienteSocket = new Socket();
             addr = new InetSocketAddress(conn[0], Integer.parseInt(conn[1]));
             clienteSocket.connect(addr);
-            conectado = true;
             ops = new DataOutputStream(clienteSocket.getOutputStream());
-            ips =new DataInputStream (clienteSocket.getInputStream());
+            ips = new DataInputStream(clienteSocket.getInputStream());
 
         } catch (IOException ex) {
 
-            conectado = false;
         }
 
+    }
+
+    public DataInputStream getIps() {
+        return ips;
     }
 
     public void desconexion() {
@@ -117,24 +100,24 @@ public class Cliente {
         //Si falla muestra un mensaje
         try {
 
-            if (conectado == true) {
+            clienteEscribir("/bye");
+            lector.getHilo().stop();
+            clienteSocket.close();
+            System.out.println("Desconectado");
 
-                os.write("OFF#".getBytes());
-                if (is != null) {
-                    is.close();
-                }
-
-                if (os != null) {
-                    os.close();
-                }
-
-                if (clienteSocket != null) {
-                    clienteSocket.close();
-                }
-            } else {
-
-                System.exit(0);
+            if (is != null) {
+                is.close();
             }
+
+            if (os != null) {
+                os.close();
+            }
+
+            if (clienteSocket != null) {
+                clienteSocket.close();
+            }
+            System.exit(0);
+
         } catch (IOException ex) {
 
         }

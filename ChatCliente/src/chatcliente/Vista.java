@@ -6,117 +6,104 @@
 package chatcliente;
 
 import java.awt.Color;
-import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 /**
  *
  * @author agonzalezgonzalez
  */
-public final class Vista extends JPanel implements ActionListener {
+public class Vista extends JPanel{
 
-    static JFrame ventana;
-    static JTextArea chat;
-    static JTextField txt;
-    JLabel titulo;
-    JButton enviar;
-    Cliente cli;
-    Controlador contr;
-    Lector leer;
-    JScrollPane panelChat;
+    static Cliente c;
+    Lector lector;
+    public static JTextArea chat;
+    public static JTextField txt;
+    public static JPanel panelUsuarios;
+    public static JLabel usuario;
+    public static JFrame ventana;
+    public static JLabel username;
+    public static JButton enviar;
 
     Vista() {
-        cli = new Cliente();
-        contr = new Controlador(cli);
+        c = new Cliente();
 
-        ventana = new JFrame();
-        chat = new JTextArea();
         txt = new JTextField();
-        titulo = new JLabel();
-        enviar = new JButton("Enviar");
-        
+        chat = new JTextArea();
+        ventana = new JFrame();
+        panelUsuarios = new JPanel();
+        enviar = new JButton("enviar");
+        lector = new Lector(c.getIps());
+        c.setLector(lector);
+
+        //Null para posiciones absolutas
         this.setLayout(null);
 
-        posicionChat();
-        posicionTxt();
-
-        titulo.setBounds(panelChat.getX(), panelChat.getY() - 75, panelChat.getWidth(), 50);
-        titulo.setText("Sala de chat");
-        titulo.setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
-        titulo.setHorizontalAlignment(JLabel.CENTER);
-
-        this.add(titulo);
-
-        ventana.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (JOptionPane.showConfirmDialog(ventana,
-                        "¿Quieres cerrar elchat?", "¿Cerrar el Chat??",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                    try {
-                        cli.clienteEscribir("/bye");
-                        cli.clienteSocket.close();
-                        System.exit(0);
-                    } catch (IOException ex) {
-                        Logger.getLogger(Vista.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
+        enviar.addActionListener((ActionEvent ae) -> {
+        enviarMensaje(Vista.txt.getText());
         });
-        ventana.setDefaultCloseOperation(3);
-        ventana.setSize(500, 600);
-        ventana.setLocationRelativeTo(null);
-        ventana.add(this);
-        ventana.setVisible(true);
         
-        new Lector(contr.getCliente().ips);
-    }
+        this.addKeyListener(new Teclado());
 
-    private void posicionTxt() {
-
-        txt.setBounds(panelChat.getX(), panelChat.getY() + panelChat.getHeight() + 75, panelChat.getWidth(), 50);
-        txt.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-
-        enviar.setBounds(txt.getX() + txt.getWidth() + 5, txt.getY(), 80, 50);
-        enviar.addActionListener(this);
-        this.add(enviar);
-        this.add(txt);
-
-    }
-
-    private void posicionChat() {
-
-        panelChat = new JScrollPane();
+        //Caracteristicas TextArea
+        chat.setBounds(35, 35, 375, 375);
+        chat.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         chat.setLineWrap(true);
-        chat.setColumns(20);
-        chat.setRows(5);
-        chat.setWrapStyleWord(true);
-        chat.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-        chat.setEnabled(false);
-        chat.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        chat.setEditable(false);
         
-        panelChat.setBounds(50, 100, 250, 300);
-        panelChat.setViewportView(chat);
-        this.add(panelChat);
+        //Caracteristicas txt
+        txt.setBounds(chat.getX(), chat.getY() + chat.getHeight() + 10, chat.getWidth(), 65);
+        
+        
+        
+        //Cracteristica panelUsuarios
+        panelUsuarios.setBounds(chat.getX() + chat.getWidth() + 10, chat.getY(), 100, chat.getHeight());
+        panelUsuarios.setLayout(new GridLayout(10, 1));
+        panelUsuarios.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        
+        enviar.setBounds(panelUsuarios.getX(), txt.getY(), panelUsuarios.getWidth(), 50);
 
+        this.add(enviar);
+        this.add(panelUsuarios);
+        this.add(chat);
+        this.add(txt);
+        
+        ventana.setLocationRelativeTo(null);
+        ventana.setSize(600, 550);
+        ventana.add(this);
+        ventana.setDefaultCloseOperation(3);
+        ventana.setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == enviar) {
-            
-            contr.enviar(txt.getText());
-            txt.setText("");
-            Vista.chat.append(contr.leer());
-            chat.append("\n");
-            
+    public static void nuevoUsuario(String nickname) {
+        username = new JLabel(nickname);
+        username.setHorizontalAlignment(JLabel.CENTER);
+        panelUsuarios.add(username);
+    }
+
+    public static void enviarMensaje(String mensaje) {
+        if(!mensaje.equalsIgnoreCase("/bye#")){
+            System.out.println("Cliente escribio /bye ");
+        c.clienteEscribir(mensaje);
+        }else{
+            c.desconexion();
         }
+        Vista.txt.setText("");
+    }
+
+    public class Teclado extends KeyAdapter {
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                enviarMensaje(Vista.txt.getText());
+            }
+        }
+
     }
 
 }
