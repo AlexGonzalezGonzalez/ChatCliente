@@ -40,8 +40,8 @@ public class Lector implements Runnable {
 
         while (true) {
             try {
-                size = lector.readInt();
-                mensaje = new byte[size];
+                
+                mensaje = new byte[lector.readInt()];
                 lector.read(mensaje);
                 String msg = new String(mensaje);
                 System.out.println("Leer: " + new String(mensaje));
@@ -51,7 +51,6 @@ public class Lector implements Runnable {
                     System.out.println("if del lector");
                     String[] arr=msg.split("conectado \\( ");
                     Vista.nuevoUsuario(arr[1].split(" /")[0]);
-                    System.out.println(arr[1].split("/")[0]);
                 }
 
             } catch (IOException ex) {

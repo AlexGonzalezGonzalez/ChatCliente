@@ -56,14 +56,11 @@ public class Cliente {
         try {
 
             msg = msg + "#";
-            size = msg.getBytes().length;
-            ops.writeInt(size);
+            ops.writeInt(msg.getBytes().length);
             ops.write(msg.getBytes());
             System.out.println("Cliente escribio: " + msg);
 
-        } catch (IOException ex) {
-
-        }
+        } catch (IOException ex) {}
     }
 
     /**
