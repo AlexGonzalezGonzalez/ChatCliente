@@ -35,7 +35,7 @@ public class Cliente {
         
         //Nos conectamos al servidor
         conexion();
-        //System.out.println("Cliente conectado");
+        System.out.println("Cliente conectado");
 
     }
 
