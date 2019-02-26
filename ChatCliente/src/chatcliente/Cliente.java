@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -59,6 +60,9 @@ public class Cliente {
             ops.writeInt(msg.getBytes().length);
             ops.write(msg.getBytes());
             System.out.println("Cliente escribio: " + msg);
+            if(msg.contains("/sala")){
+                Vista.panelUsuarios.removeAll();
+            }
 
         } catch (IOException ex) {}
     }

@@ -78,9 +78,11 @@ public class Vista extends JPanel {
     }
 
     public static void nuevoUsuario(String nickname) {
+        
         username = new JLabel(nickname);
         username.setHorizontalAlignment(JLabel.CENTER);
         panelUsuarios.add(username);
+        
     }
 
     public static void enviarMensaje(String mensaje) {
