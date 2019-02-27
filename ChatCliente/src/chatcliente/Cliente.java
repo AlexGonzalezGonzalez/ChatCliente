@@ -33,7 +33,7 @@ public class Cliente {
 
     //Constructor
     Cliente() {
-        
+
         //Nos conectamos al servidor
         conexion();
         System.out.println("Cliente conectado");
@@ -60,17 +60,28 @@ public class Cliente {
             ops.writeInt(msg.getBytes().length);
             ops.write(msg.getBytes());
             System.out.println("Cliente escribio: " + msg);
-            if(msg.contains("/sala")){
+            if (msg.contains("/bye")) {
+                desconexion();
+            }
+            if (msg.contains("/sala")) {
                 Vista.panelUsuarios.removeAll();
             }
 
-        } catch (IOException ex) {}
+        } catch (IOException ex) {
+        }
     }
 
     /**
      * Metodo que conecta con el servidor usando socket stream y inicia el
      * inputStream y outputStream
      */
+    public void datos() {
+        String datos = JOptionPane.showInputDialog("Escriba con el siguiente formato:\n nickname:sala");
+        String[] datos2 = datos.split(":");
+        clienteEscribir(datos2[0]);
+        clienteEscribir(datos2[1]);
+    }
+
     public void conexion() {
 
         //Creamos un socket y nos conectamos a la ip y puerto recibidos
@@ -101,7 +112,6 @@ public class Cliente {
         //Si falla muestra un mensaje
         try {
 
-            clienteEscribir("/bye");
             lector.getHilo().stop();
             clienteSocket.close();
             System.out.println("Desconectado");

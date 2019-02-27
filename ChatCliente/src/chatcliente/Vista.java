@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import javax.swing.*;
 
 /**
@@ -30,7 +31,10 @@ public class Vista extends JPanel {
     public static JButton enviar;
 
     Vista() {
+
         c = new Cliente();
+
+        c.datos();
 
         txt = new JTextField();
         chat = new JTextArea();
@@ -63,12 +67,29 @@ public class Vista extends JPanel {
         panelUsuarios.setLayout(new GridLayout(10, 1));
         panelUsuarios.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
-        enviar.setBounds(panelUsuarios.getX(), txt.getY(), panelUsuarios.getWidth(), 50);
+        enviar.setBounds(panelUsuarios.getX(), txt.getY(), panelUsuarios.getWidth(), txt.getHeight());
 
         this.add(enviar);
         this.add(panelUsuarios);
         this.add(chat);
         this.add(txt);
+
+        ventana.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(ventana,
+                        "¿Quieres cerrar el chat?", "¿Cerrar el Chat?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                    try {
+                        c.clienteEscribir("/bye");
+                        c.clienteSocket.close();
+                        System.exit(0);
+                    } catch (IOException ex) {
+                    }
+                }
+            }
+        });
 
         ventana.setLocationRelativeTo(null);
         ventana.setSize(600, 550);
@@ -78,21 +99,17 @@ public class Vista extends JPanel {
     }
 
     public static void nuevoUsuario(String nickname) {
-        
+        System.out.println("En nuevo usuario: " + nickname);
         username = new JLabel(nickname);
         username.setHorizontalAlignment(JLabel.CENTER);
         panelUsuarios.add(username);
-        
+
     }
 
     public static void enviarMensaje(String mensaje) {
-        if (!mensaje.equalsIgnoreCase("/bye#")) {
 
-            c.clienteEscribir(mensaje);
-        } else {
-            System.out.println("Cliente escribio /bye ");
-            c.desconexion();
-        }
+        c.clienteEscribir(mensaje);
+
         Vista.txt.setText("");
     }
 
@@ -102,6 +119,7 @@ public class Vista extends JPanel {
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 enviarMensaje(Vista.txt.getText());
+
             }
         }
 
